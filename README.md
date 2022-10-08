@@ -14,7 +14,7 @@ With this, I will learn about Kubernetes and Helm, which are things present on m
 [JDownloader](https://jdownloader.org/) is a popular and open-code Java application to download content from Internet such as games, applications and multimedia.
 It must not be used to take copyright-protected files.
 
-The chart set here is prepared to store the configuration and content on the host disk. 
+The chart set here is prepared to store the configuration and content on the host's disk. 
 
 ## Change-log
 I will not use branching for this project so I will just create tags when I consider a chart is finished. The code will change without further notice so fork or copy it when you need it.
