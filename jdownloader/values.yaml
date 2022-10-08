@@ -1,0 +1,39 @@
+# Number of replicas to de deployed
+replicaCount: 1
+
+# Image pull information
+image:
+  repository: jlesage/jdownloader-2
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+# Data about the service and port used by it
+service:
+  type: NodePort
+  containerPort: 5800
+  externalPort: 30058
+
+spec:
+  # The app should be working always even when the host restarts unless it is stopped
+  restartPolicy: Always
+  # Files managed by the app will own to the user 1000
+  podSecurityContext:
+    fsGroup: 1000
+  # Volumes to be configured for configuration and downloads
+  volumes:
+    - name: config
+      hostPath:
+        # Change <Absolute path> by a valid path
+        path: <Absolute path>
+        type: Directory
+    - name: downloads
+      hostPath:
+        # Change <Absolute path> by a valid path
+        path: <Absolute path>
+        type: Directory
+  volumeMounts:
+    - name: config
+      mountPath: /config
+    - name: downloads
+      mountPath: /output
