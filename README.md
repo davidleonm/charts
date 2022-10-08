@@ -1,7 +1,7 @@
 # Charts
 Repository with a set of Helm charts with my favourite applications to be deployed on Kubernetes.
 
-## What is this for
+## What this is for
 Continuing with my learning path, I decided to create this repository as a place to store a set of Helm charts for the applications I use at home.
 With this, I will learn about Kubernetes and Helm, which are things present on my daily basis and what I would like to improve my knowledge about.
 
