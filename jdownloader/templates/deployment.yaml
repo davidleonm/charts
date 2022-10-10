@@ -18,7 +18,14 @@ spec:
       securityContext:
         {{- toYaml .Values.spec.podSecurityContext | nindent 8 }}
       volumes:
-        {{- toYaml .Values.spec.volumes | nindent 8 }}
+        - name: config
+          hostPath:
+            path: {{ .Values.spec.volumes.configPath }}
+            type: Directory
+        - name: downloads
+          hostPath:
+            path: {{ .Values.spec.volumes.downloadsPath }}
+            type: Directory
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
@@ -27,7 +34,10 @@ spec:
             - containerPort: {{ .Values.service.containerPort }}
               protocol: TCP
           volumeMounts:
-            {{- toYaml .Values.spec.volumeMounts | nindent 12 }}
+            - name: config
+              mountPath: /config
+            - name: downloads
+              mountPath: /output
           env:
             - name: SECURE_CONNECTION
               value: "1"

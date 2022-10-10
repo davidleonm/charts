@@ -22,18 +22,7 @@ spec:
     fsGroup: 1000
   # Volumes to be configured for configuration and downloads
   volumes:
-    - name: config
-      hostPath:
-        # Change <Absolute path> by a valid path
-        path: <Absolute path>
-        type: Directory
-    - name: downloads
-      hostPath:
-        # Change <Absolute path> by a valid path
-        path: <Absolute path>
-        type: Directory
-  volumeMounts:
-    - name: config
-      mountPath: /config
-    - name: downloads
-      mountPath: /output
+      # Change <Absolute path> by a valid path
+      configPath: <Absolute path>
+      # Change <Absolute path> by a valid path
+      downloadsPath: <Absolute path>
