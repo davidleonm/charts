@@ -23,7 +23,7 @@ pipeline {
                     sh """
                        for package in ./*.tgz
                        do
-                           mv $package $HELM_PACKAGE_PATH
+                           mv package HELM_PACKAGE_PATH
                        done
                        """
                 }
