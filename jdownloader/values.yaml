@@ -22,7 +22,7 @@ spec:
     fsGroup: 1000
   # Volumes to be configured for configuration and downloads
   volumes:
-      # Change <Absolute path> by a valid path
-      configPath: <Absolute path>
-      # Change <Absolute path> by a valid path
-      downloadsPath: <Absolute path>
+    # Change <Absolute path> by a valid path
+    configPath: <Absolute path>
+    # Change <Absolute path> by a valid path
+    downloadsPath: <Absolute path>

@@ -1,0 +1,32 @@
+# Number of replicas to de deployed
+replicaCount: 1
+
+# Image pull information
+image:
+  repository: plexinc/pms-docker
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+# Data about the service and port used by it
+service:
+  type: NodePort
+  containerPort: 32400
+  externalPort: 32400
+
+spec:
+  # The app should be working always even when the host restarts unless it is stopped
+  restartPolicy: Always
+  # Files managed by the app will own to the user 1000
+  podSecurityContext:
+    fsGroup: 1000
+  # Volumes to be configured for configuration, media content and transcoding
+  volumes:
+    # Change <Absolute path> by a valid path to store configuration
+    configPath: <Absolute path>
+    # Change <Absolute path> by a valid path to store transcoding movies
+    transcodingPath: <Absolute path>
+    # Change <Absolute path> by a valid path to retrieve the library media content
+    libraryPath: <Absolute path>
+  # Complete list of timezones https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  timeZone: <My time zone>

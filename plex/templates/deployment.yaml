@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+  labels:
+    {{- include "plex.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "plex.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "plex.selectorLabels" . | nindent 8 }}
+    spec:
+      restartPolicy: {{ .Values.spec.restartPolicy }}
+      securityContext:
+        {{- toYaml .Values.spec.podSecurityContext | nindent 8 }}
+      volumes:
+        - name: config
+          hostPath:
+            path: {{ .Values.spec.volumes.configPath }}
+            type: Directory
+        - name: transcode
+          hostPath:
+            path: {{ .Values.spec.volumes.transcodingPath }}
+            type: Directory
+        - name: library
+          hostPath:
+            path: {{ .Values.spec.volumes.libraryPath }}
+            type: Directory
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.containerPort }}
+              protocol: TCP
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            - name: transcode
+              mountPath: /transcode
+            - name: library
+              mountPath: /library
+          env:
+            - name: TZ
+              value: {{ .Values.spec.timeZone }}
+            - name: PLEX_UID
+              value: {{ .Values.spec.podSecurityContext.fsGroup }}
+            - name: PLEX_GID
+              value: {{ .Values.spec.podSecurityContext.fsGroup }}
