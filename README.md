@@ -19,8 +19,8 @@ The chart set here is prepared to store the configuration and content on the hos
 ## Change-log
 I will not use branching for this project so I will just create tags when I consider a chart is finished. The code will change without further notice so fork or copy it when you need it.
 
+* **v1.1.0** - Added jenkins file to package charts and copy them remotely. It uses the helm Jenkins node present [here](https://github.com/davidleonm/environment-test).
 * **v1.0.0** - First version with [JDownloader](https://jdownloader.org/).
-* **v1.0.1** - Added [Artifactory](https://jfrog.com/artifactory/).
 
 ## License
 Use this code as you wish! Totally free to be copied/pasted.
