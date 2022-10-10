@@ -17,13 +17,13 @@ pipeline {
             }
         }
         
-        stage('Creating Helm charts') {
+        stage('Moving charts to server') {
             steps {
                 script {
                     sh """
                        for package in ./*.tgz
                        do
-                           mv package HELM_PACKAGE_PATH
+                           mv $package $HELM_PACKAGE_PATH
                        done
                        """
                 }
