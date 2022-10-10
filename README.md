@@ -20,6 +20,7 @@ The chart set here is prepared to store the configuration and content on the hos
 I will not use branching for this project so I will just create tags when I consider a chart is finished. The code will change without further notice so fork or copy it when you need it.
 
 * **v1.0.0** - First version with [JDownloader](https://jdownloader.org/).
+* **v1.0.1** - Added [Artifactory](https://jfrog.com/artifactory/).
 
 ## License
 Use this code as you wish! Totally free to be copied/pasted.
