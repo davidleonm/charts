@@ -1,6 +1,3 @@
-@Library('shared-library') _
-import com.davidleonm.GlobalVariables
-
 pipeline {
     agent { label 'helm-slave' }
     
@@ -12,7 +9,7 @@ pipeline {
         stage('Creating Helm charts') {
             steps {
                 script {
-                    sh 'for folder in ./*/ do helm package $folder'
+                    sh 'for folder in ./*/; do helm package $folder; done'
                 }
             }
         }
@@ -20,12 +17,7 @@ pipeline {
         stage('Moving charts to server') {
             steps {
                 script {
-                    sh """
-                       for package in ./*.tgz
-                       do
-                           mv package HELM_PACKAGE_PATH
-                       done
-                       """
+                    sh 'for package in ./*.tgz; do mv $package ${HELM_PACKAGE_PATH}; done'
                 }
             }
         }
