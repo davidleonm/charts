@@ -48,6 +48,6 @@ spec:
             - name: TZ
               value: {{ .Values.spec.timeZone }}
             - name: PLEX_UID
-              value: {{ .Values.spec.podSecurityContext.fsGroup }}
+              value: {{ .Values.spec.podSecurityContext.fsGroup | quote }}
             - name: PLEX_GID
-              value: {{ .Values.spec.podSecurityContext.fsGroup }}
+              value: {{ .Values.spec.podSecurityContext.fsGroup | quote }}
