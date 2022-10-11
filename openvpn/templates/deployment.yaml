@@ -29,6 +29,8 @@ spec:
           ports:
             - containerPort: {{ .Values.service.containerPort }}
               protocol: {{ .Values.service.protocol }}
+          securityContext:
+            {{- toYaml .Values.spec.containerSecurityContext | nindent 12 }}
           volumeMounts:
             - name: config
               mountPath: /etc/openvpn

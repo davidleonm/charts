@@ -18,9 +18,11 @@ service:
 spec:
   # The app should be working always even when the host restarts unless it is stopped
   restartPolicy: Always
-  # Files managed by the app will own to the user 1000 and NET_ADMIN capability added
+  # Files managed by the app will own to the user 1000
   podSecurityContext:
     fsGroup: 1000
+  # Added NET_ADMIN capability to container to be able to run
+  containerSecurityContext:
     capabilities:
       add:
         - NET_ADMIN
