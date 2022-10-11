@@ -3,16 +3,16 @@ kind: Deployment
 metadata:
   name: {{ .Chart.Name }}
   labels:
-    {{- include "jdownloader.labels" . | nindent 4 }}
+    {{- include "openvpn.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "jdownloader.selectorLabels" . | nindent 6 }}
+      {{- include "openvpn.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "jdownloader.selectorLabels" . | nindent 8 }}
+        {{- include "openvpn.selectorLabels" . | nindent 8 }}
     spec:
       restartPolicy: {{ .Values.spec.restartPolicy }}
       securityContext:
@@ -20,11 +20,7 @@ spec:
       volumes:
         - name: config
           hostPath:
-            path: {{ .Values.spec.volumes.configPath }}
-            type: Directory
-        - name: downloads
-          hostPath:
-            path: {{ .Values.spec.volumes.downloadsPath }}
+            path: {{ .Values.spec.volumes.path }}
             type: Directory
       containers:
         - name: {{ .Chart.Name }}
@@ -35,9 +31,7 @@ spec:
               protocol: {{ .Values.service.protocol }}
           volumeMounts:
             - name: config
-              mountPath: /config
-            - name: downloads
-              mountPath: /output
+              mountPath: /etc/openvpn
           env:
-            - name: SECURE_CONNECTION
-              value: "1"
+            - name: EASYRSA_KEY_SIZE
+              value: "4096"

@@ -32,9 +32,20 @@ Example of installation by providing custom values for persistent configuration 
 helm install plex /mnt/helms/plex-1.0.0.tgz --namespace=default --set spec.volumes.configPath=/mnt/config/ --set spec.volumes.transcodingPath=/mnt/transcode/ --set spec.volumes.libraryPath=/mnt/library/ --set spec.timeZone=Europe/Madrid
 ```
 
+### OpenVPN
+[OpenVPN](https://hub.docker.com/r/kylemanna/openvpn/) server in a Docker container complete with an EasyRSA PKI CA.
+
+The chart set here is prepared to store the configuration on the host's disk.
+
+Example of installation by providing custom values for persistent configuration.
+```bash
+helm install plex /mnt/helms/openvpn-1.0.0.tgz --namespace=default --set spec.volumes.path=/mnt/config/
+```
+
 ## Change-log
 I will not use branching for this project so I will just create tags when I consider a chart is finished. The code will change without further notice so fork or copy it when you need it.
 
+* **v1.3.0** - Added [OpenVPN](https://hub.docker.com/r/kylemanna/openvpn/).
 * **v1.2.0** - Added [Plex](https://www.plex.tv/).
 * **v1.1.1** - Changed JDownloader values to help to override some paths by helm commands. Provided example of installation command.
 * **v1.1.0** - Added jenkins file to package charts and copy them remotely. It uses the helm Jenkins node present [here](https://github.com/davidleonm/environment-test).

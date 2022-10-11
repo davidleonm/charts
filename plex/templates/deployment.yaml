@@ -36,7 +36,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.service.containerPort }}
-              protocol: TCP
+              protocol: {{ .Values.service.protocol }}
           volumeMounts:
             - name: config
               mountPath: /config

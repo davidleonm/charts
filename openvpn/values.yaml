@@ -3,7 +3,7 @@ replicaCount: 1
 
 # Image pull information
 image:
-  repository: jlesage/jdownloader-2
+  repository: kylemanna/openvpn
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
@@ -11,19 +11,20 @@ image:
 # Data about the service and port used by it
 service:
   type: NodePort
-  containerPort: 5800
-  externalPort: 30058
-  protocol: TCP
+  containerPort: 1194
+  externalPort: 30094
+  protocol: UDP
 
 spec:
   # The app should be working always even when the host restarts unless it is stopped
   restartPolicy: Always
-  # Files managed by the app will own to the user 1000
+  # Files managed by the app will own to the user 1000 and NET_ADMIN capability added
   podSecurityContext:
     fsGroup: 1000
-  # Volumes to be configured for configuration and downloads
+    capabilities:
+      add:
+        - NET_ADMIN
+  # Volumes to be configured for configuration
   volumes:
     # Change <Absolute path> by a valid path
-    configPath: <Absolute path>
-    # Change <Absolute path> by a valid path
-    downloadsPath: <Absolute path>
+    path: <Absolute path>

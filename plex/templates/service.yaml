@@ -10,6 +10,6 @@ spec:
     - port: {{ .Values.service.containerPort }}
       targetPort: {{ .Values.service.containerPort }}
       nodePort: {{ .Values.service.externalPort }}
-      protocol: TCP
+      protocol: {{ .Values.service.protocol }}
   selector:
     {{- include "plex.selectorLabels" . | nindent 4 }}
