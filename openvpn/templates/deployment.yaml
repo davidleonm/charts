@@ -28,7 +28,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.service.containerPort }}
-              protocol: {{ .Values.service.protocol }}
+              protocol: "UDP"
           securityContext:
             {{- toYaml .Values.spec.containerSecurityContext | nindent 12 }}
           volumeMounts:

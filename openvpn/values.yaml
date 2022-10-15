@@ -10,10 +10,10 @@ image:
 
 # Data about the service and port used by it
 service:
-  type: NodePort
+  type: LoadBalancer
   containerPort: 1194
   externalPort: 30094
-  protocol: UDP
+  protocol: TCP
 
 spec:
   # The app should be working always even when the host restarts unless it is stopped
