@@ -45,7 +45,7 @@ helm install jenkins /mnt/helms/jenkins-1.0.0.tgz --namespace=default --set spec
 ## Change-log
 I will not use branching for this project so I will just create tags when I consider a chart is finished. The code will change without further notice so fork or copy it when you need it.
 
-* **v1.3.0** - Added [Jenkins](https://www.jenkins.io/).
+* **v1.3.0** - Added [Jenkins](https://www.jenkins.io/). Updated Plex deployment to mount library as readonly.
 * **v1.2.0** - Added [Plex](https://www.plex.tv/).
 * **v1.1.1** - Changed JDownloader values to help to override some paths by helm commands. Provided example of installation command.
 * **v1.1.0** - Added jenkins file to package charts and copy them remotely. It uses the helm Jenkins node present [here](https://github.com/davidleonm/environment-test).
