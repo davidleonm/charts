@@ -1,0 +1,7 @@
+apiVersion: v2
+name: jenkins
+description: jenkins Helm chart for Kubernetes
+type: application
+version: 1.0.0
+appVersion: "2.373-alpine"
+icon: https://secure.gravatar.com/avatar/c61b120bdaedf42832ad4c9e391b3929.jpg?s=120&r=g&d=404

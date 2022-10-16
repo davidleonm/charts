@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+  labels:
+    {{- include "jenkins.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "jenkins.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "jenkins.selectorLabels" . | nindent 8 }}
+    spec:
+      restartPolicy: {{ .Values.spec.restartPolicy }}
+      securityContext:
+        {{- toYaml .Values.spec.podSecurityContext | nindent 8 }}
+      volumes:
+        - name: home
+          hostPath:
+            path: {{ .Values.spec.volumes.homePath }}
+            type: Directory
+        - name: timezone
+          hostPath:
+            path: /etc/timezone
+        - name: localtime
+          hostPath:
+            path: /etc/localtime
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.containerPort }}
+              protocol: {{ .Values.service.protocol }}
+            - containerPort: {{ .Values.service.agentPort }}
+              protocol: {{ .Values.service.protocol }}
+          volumeMounts:
+            - name: home
+              mountPath: /var/jenkins_home
+            - name: timezone
+              mountPath: /etc/timezone
+              readOnly: true
+            - name: localtime
+              mountPath: /etc/localtime
+              readOnly: true

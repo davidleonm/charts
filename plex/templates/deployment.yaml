@@ -44,6 +44,7 @@ spec:
               mountPath: /transcode
             - name: library
               mountPath: /library
+              readOnly: true
           env:
             - name: TZ
               value: {{ .Values.spec.timeZone }}

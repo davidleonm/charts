@@ -1,0 +1,29 @@
+# Number of replicas to de deployed
+replicaCount: 1
+
+# Image pull information
+image:
+  repository: jenkins/jenkins
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+# Data about the service and port used by it
+service:
+  type: NodePort
+  containerPort: 8080
+  externalPort: 30080
+  agentPort: 50000
+  externalAgentPort: 30050
+  protocol: TCP
+
+spec:
+  # The app should be working always even when the host restarts unless it is stopped
+  restartPolicy: Always
+  # Files managed by the app will own to the user 1000
+  podSecurityContext:
+    fsGroup: 1000
+  # Volumes to be configured for configuration and downloads
+  volumes:
+    # Change <Absolute path> by a valid path
+    homePath: <Absolute path>
