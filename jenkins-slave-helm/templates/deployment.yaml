@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+  labels:
+    {{- include "jenkins-slave-helm.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "jenkins-slave-helm.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "jenkins-slave-helm.selectorLabels" . | nindent 8 }}
+    spec:
+      restartPolicy: {{ .Values.spec.restartPolicy }}
+      volumes:
+        - name: sshd
+          hostPath:
+            path: {{ .Values.spec.volumes.sshdConfigPath }}
+        - name: helms
+          hostPath:
+            path: {{ .Values.spec.volumes.helmsPath }}
+            type: Directory
+        - name: timezone
+          hostPath:
+            path: /etc/timezone
+        - name: localtime
+          hostPath:
+            path: /etc/localtime
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          command: [ {{ .Values.spec.shellPath }} ]
+          args: [ "-c", {{ .Values.spec.commands }} ]
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.sshd.port }}
+              protocol: TCP
+          volumeMounts:
+            - name: sshd
+              mountPath: /etc/ssh/sshd_config
+              readOnly: true
+            - name: helms
+              mountPath: /mnt/helms
+            - name: timezone
+              mountPath: /etc/timezone
+              readOnly: true
+            - name: localtime
+              mountPath: /etc/localtime
+              readOnly: true
