@@ -1,6 +1,6 @@
 apiVersion: v2
-name: jenkins-slave-helm
-description: jenkins-slave-helm Helm chart for Kubernetes
+name: jenkins-helm-slave
+description: jenkins-helm-slave Helm chart for Kubernetes
 type: application
 version: 1.0.0
 appVersion: "3.10.1"

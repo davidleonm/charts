@@ -3,16 +3,16 @@ kind: Deployment
 metadata:
   name: {{ .Chart.Name }}
   labels:
-    {{- include "jenkins-slave-helm.labels" . | nindent 4 }}
+    {{- include "jenkins-helm-slave.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "jenkins-slave-helm.selectorLabels" . | nindent 6 }}
+      {{- include "jenkins-helm-slave.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "jenkins-slave-helm.selectorLabels" . | nindent 8 }}
+        {{- include "jenkins-helm-slave.selectorLabels" . | nindent 8 }}
     spec:
       restartPolicy: {{ .Values.spec.restartPolicy }}
       volumes:

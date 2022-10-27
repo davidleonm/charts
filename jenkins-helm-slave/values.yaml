@@ -27,7 +27,7 @@ spec:
   shellPath: /bin/ash
   # List of semi-colon separated commands to execute in shell during initialization
   commands: >
-    add --no-cache openssh openjdk11 git curl ;
+    apk add --no-cache openssh openjdk11 git curl ;
     adduser -D -h /home/jenkins jenkins -s /bin/ash ;
     echo "jenkins:jenkins" | chpasswd ;
     addgroup jenkins ping ;
