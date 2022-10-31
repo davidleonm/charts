@@ -31,7 +31,7 @@ spec:
   commands: >
     apt-get update ;
     apt-get upgrade -yq ;
-    apt-get install --fix-missing -y openjdk-11-jre git curl nodejs npm ;
+    apt-get install --fix-missing -y openssh-server openjdk-11-jre git curl nodejs npm ;
     curl -sSL https://get.docker.com/ | sh ;
     useradd -ms /bin/bash jenkins ;
     echo "jenkins:jenkins" | chpasswd ;
