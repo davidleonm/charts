@@ -19,6 +19,9 @@ spec:
         - name: sshd
           hostPath:
             path: {{ .Values.spec.volumes.sshdConfigPath }}
+        - name: authorized-keys
+          hostPath:
+            path: {{ .Values.spec.volumes.authorizedKeysPath }}
         - name: helms
           hostPath:
             path: {{ .Values.spec.volumes.helmsPath }}
@@ -36,11 +39,14 @@ spec:
           args: [ "-c", {{ .Values.spec.commands }} ]
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - containerPort: {{ .Values.sshd.port }}
-              protocol: TCP
+            - containerPort: {{ .Values.service.containerPort }}
+              protocol: {{ .Values.service.protocol }}
           volumeMounts:
             - name: sshd
               mountPath: /etc/ssh/sshd_config
+              readOnly: true
+            - name: authorized-keys
+              mountPath: /home/jenkins/.ssh/authorized_keys
               readOnly: true
             - name: helms
               mountPath: /mnt/helms
