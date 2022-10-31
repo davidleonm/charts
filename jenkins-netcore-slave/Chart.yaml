@@ -1,0 +1,7 @@
+apiVersion: v2
+name: jenkins-netcore-slave
+description: jenkins-netcore-slave Helm chart for Kubernetes
+type: application
+version: 1.0.0
+appVersion: "6.0.402-bullseye-slim-amd64"
+icon: https://msdn.microsoft.com/virtualization/windowscontainers/Media/dockerstorehub/microsoftsymbol.png

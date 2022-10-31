@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Chart.Name }}
+  labels:
+    {{- include "jenkins-netcore-slave.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.containerPort }}
+      targetPort: {{ .Values.service.containerPort }}
+      protocol: {{ .Values.service.protocol }}
+  selector:
+    {{- include "jenkins-netcore-slave.selectorLabels" . | nindent 4 }}

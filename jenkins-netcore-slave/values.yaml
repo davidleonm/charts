@@ -1,0 +1,42 @@
+# Number of replicas to de deployed
+replicaCount: 1
+
+# Image pull information
+image:
+  repository: mcr.microsoft.com/dotnet/sdk
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+# Data about the service and port used by it
+service:
+  type: ClusterIP
+  containerPort: 2233
+  protocol: TCP
+
+spec:
+  # The app should be working always even when the host restarts unless it is stopped
+  restartPolicy: Always
+  # Volumes to be configured for configuration and downloads
+  volumes:
+    # Change <Absolute path> by a valid path
+    sshdConfigPath: <Absolute path>
+    # Change <Absolute path> by a valid path
+    authorizedKeysPath: <Absolute path>
+    # Change <Absolute path> by a valid path
+    dockerSockPath: <Absolute path>
+  # Path of the shell interpreter. /bin/bash for linux
+  shellPath: /bin/bash
+  # List of semi-colon separated commands to execute in shell during initialization
+  commands: >
+    apt-get update ;
+    apt-get upgrade -y ;
+    apt-get install --fix-missing -y openssh-server openjdk-11-jre git curl nodejs npm ;
+    curl -sSL https://get.docker.com/ | sh ;
+    useradd -ms /bin/bash jenkins ;
+    echo "jenkins:jenkins" | chpasswd ;
+    ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key ;
+    mkdir /run/sshd ;
+    chmod 0755 /run/sshd ;
+    /usr/sbin/sshd -D
+    
