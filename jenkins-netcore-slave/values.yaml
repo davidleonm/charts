@@ -30,7 +30,7 @@ spec:
   # List of semi-colon separated commands to execute in shell during initialization
   commands: >
     apt-get update ;
-    DEBIAN_FRONTEND=noninteractive apt-get upgrade -yq ;
+    apt-get upgrade -yq ;
     apt-get install --fix-missing -y openssh-server openjdk-11-jre git curl nodejs npm ;
     curl -sSL https://get.docker.com/ | sh ;
     useradd -ms /bin/bash jenkins ;
@@ -38,5 +38,5 @@ spec:
     ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key ;
     mkdir /run/sshd ;
     chmod 0755 /run/sshd ;
-    /usr/sbin/sshd -D
+    DEBIAN_FRONTEND=noninteractive /usr/sbin/sshd -D
     
