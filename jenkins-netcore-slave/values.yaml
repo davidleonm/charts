@@ -38,5 +38,5 @@ spec:
     ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key ;
     mkdir /run/sshd ;
     chmod 0755 /run/sshd ;
-    DEBIAN_FRONTEND=noninteractive /usr/sbin/sshd -D
+    /usr/sbin/sshd -D -f /etc/ssh/sshd_config
     
