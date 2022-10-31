@@ -31,7 +31,7 @@ spec:
   shellPath: /bin/ash
   # List of semi-colon separated commands to execute in shell during initialization
   commands: >
-    apk add --no-cache add --no-cache openssh openjdk11 git py3-virtualenv curl docker postgresql-dev gcc python3-dev musl-dev make ;
+    apk add --no-cache openssh openjdk11 git py3-virtualenv curl docker postgresql-dev gcc python3-dev musl-dev make ;
     adduser -D -h /home/jenkins jenkins -s /bin/ash ;
     echo "jenkins:jenkins" | chpasswd ;
     addgroup jenkins docker ; 
