@@ -29,6 +29,7 @@ spec:
   shellPath: /bin/bash
   # List of semi-colon separated commands to execute in shell during initialization
   commands: >
+    DEBIAN_FRONTEND=noninteractive
     apt-get update ;
     apt-get upgrade -y ;
     apt-get install --fix-missing -y openssh-server openjdk-11-jre git curl nodejs npm ;
