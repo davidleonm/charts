@@ -36,7 +36,6 @@ spec:
     curl -sSL https://get.docker.com/ | sh ;
     useradd -ms /bin/bash jenkins ;
     echo "jenkins:jenkins" | chpasswd ;
-    ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key ;
     mkdir /run/sshd ;
     chmod 0755 /run/sshd ;
     /usr/sbin/sshd -D
