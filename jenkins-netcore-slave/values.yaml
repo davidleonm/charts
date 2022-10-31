@@ -36,8 +36,9 @@ spec:
     curl -sSL https://get.docker.com/ | sh ;
     useradd -m jenkins -s /bin/bash ;
     echo "jenkins:jenkins" | chpasswd ;
-    addgroup jenkins docker
+    addgroup jenkins docker ;
     mkdir /run/sshd ;
     chmod 0755 /run/sshd ;
+    chown -R jenkins /home/jenkins ;
     /usr/sbin/sshd -D
     
