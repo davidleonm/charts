@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+  labels:
+    {{- include "jenkins-python-slave.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "jenkins-python-slave.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "jenkins-python-slave.selectorLabels" . | nindent 8 }}
+    spec:
+      restartPolicy: {{ .Values.spec.restartPolicy }}
+      volumes:
+        - name: sshd
+          hostPath:
+            path: {{ .Values.spec.volumes.sshdConfigPath }}
+        - name: authorized-keys
+          hostPath:
+            path: {{ .Values.spec.volumes.authorizedKeysPath }}
+        - name: docker-sock
+          hostPath:
+            path: {{ .Values.spec.volumes.dockerSockPath }}
+        - name: qemu
+          hostPath:
+            path: {{ .Values.spec.volumes.qemuPath }}
+        - name: timezone
+          hostPath:
+            path: /etc/timezone
+        - name: localtime
+          hostPath:
+            path: /etc/localtime
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          command: [ {{ .Values.spec.shellPath }} ]
+          args: [ "-c", {{ .Values.spec.commands }} ]
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.containerPort }}
+              protocol: {{ .Values.service.protocol }}
+          volumeMounts:
+            - name: sshd
+              mountPath: /etc/ssh/sshd_config
+              readOnly: true
+            - name: authorized-keys
+              mountPath: /home/jenkins/.ssh/authorized_keys
+              readOnly: true
+            - name: docker-sock
+              mountPath: /var/run/docker.sock
+              readOnly: true
+            - name: qemu
+              mountPath: /usr/bin/qemu-arm-static
+              readOnly: true
+            - name: timezone
+              mountPath: /etc/timezone
+              readOnly: true
+            - name: localtime
+              mountPath: /etc/localtime
+              readOnly: true

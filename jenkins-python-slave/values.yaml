@@ -1,0 +1,42 @@
+# Number of replicas to de deployed
+replicaCount: 1
+
+# Image pull information
+image:
+  repository: python
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+# Data about the service and port used by it
+service:
+  type: ClusterIP
+  containerPort: 2233
+  protocol: TCP
+
+spec:
+  # The app should be working always even when the host restarts unless it is stopped
+  restartPolicy: Always
+  # Volumes to be configured for configuration and downloads
+  volumes:
+    # Change <Absolute path> by a valid path
+    sshdConfigPath: <Absolute path>
+    # Change <Absolute path> by a valid path
+    authorizedKeysPath: <Absolute path>
+    # Change <Absolute path> by a valid path
+    qemuPath: <Absolute path>
+    # Change <Absolute path> by a valid path
+    dockerSockPath: <Absolute path>
+  # Path of the shell interpreter. /bin/ash for alpine
+  shellPath: /bin/ash
+  # List of semi-colon separated commands to execute in shell during initialization
+  commands: >
+    apk add --no-cache add --no-cache openssh openjdk11 git py3-virtualenv curl docker postgresql-dev gcc python3-dev musl-dev make ;
+    adduser -D -h /home/jenkins jenkins -s /bin/ash ;
+    echo "jenkins:jenkins" | chpasswd ;
+    addgroup jenkins docker ; 
+    addgroup jenkins ping ;
+    ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key ;
+    ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key ;
+    ssh-keygen -t ecdsa -f /etc/ssh/ssh_host_ecdsa_key ;
+    /usr/sbin/sshd -D
