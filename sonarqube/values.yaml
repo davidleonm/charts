@@ -1,0 +1,27 @@
+# Number of replicas to de deployed
+replicaCount: 1
+
+# Image pull information
+image:
+  repository: sonarqube
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+# Data about the service and port used by it
+service:
+  type: ClusterIP
+  containerPort: 9000
+  protocol: TCP
+
+spec:
+  # The app should be working always even when the host restarts unless it is stopped
+  restartPolicy: Always
+  # Volumes to be configured for configuration and downloads
+  volumes:
+    # Change <Absolute path> by a valid path
+    dataPath: <Absolute path>
+    # Change <Absolute path> by a valid path
+    logsPath: <Absolute path>
+    # Change <Absolute path> by a valid path
+    extensionsPath: <Absolute path>

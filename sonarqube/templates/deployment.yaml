@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+  labels:
+    {{- include "sonarqube.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "sonarqube.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "sonarqube.selectorLabels" . | nindent 8 }}
+    spec:
+      restartPolicy: {{ .Values.spec.restartPolicy }}
+      volumes:
+        - name: data
+          hostPath:
+            path: {{ .Values.spec.volumes.dataPath }}
+        - name: logs
+          hostPath:
+            path: {{ .Values.spec.volumes.logsPath }}
+        - name: extensions
+          hostPath:
+            path: {{ .Values.spec.volumes.extensionsPath }}
+        - name: timezone
+          hostPath:
+            path: /etc/timezone
+        - name: localtime
+          hostPath:
+            path: /etc/localtime
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.containerPort }}
+              protocol: {{ .Values.service.protocol }}
+          volumeMounts:
+            - name: data
+              mountPath: /opt/sonarqube/data
+            - name: logs
+              mountPath: /opt/sonarqube/logs
+            - name: extensions
+              mountPath: /opt/sonarqube/extensions
+            - name: timezone
+              mountPath: /etc/timezone
+              readOnly: true
+            - name: localtime
+              mountPath: /etc/localtime
+              readOnly: true
