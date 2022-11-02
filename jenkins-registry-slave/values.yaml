@@ -1,0 +1,27 @@
+# Number of replicas to de deployed
+replicaCount: 1
+
+# Image pull information
+image:
+  repository: registry
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+# Data about the service and port used by it
+service:
+  type: ClusterIP
+  containerPort: 5000
+  protocol: TCP
+
+spec:
+  # The app should be working always even when the host restarts unless it is stopped
+  restartPolicy: Always
+  # Volumes to be configured for configuration and downloads
+  volumes:
+    # Change <Absolute path> by a valid path
+    registryPath: <Absolute path>
+  # Path of the shell interpreter. /bin/ash for alpine
+  shellPath: /bin/ash
+  # List of semi-colon separated commands to execute in shell during initialization
+  commands: /entrypoint.sh /etc/docker/registry/config.yml

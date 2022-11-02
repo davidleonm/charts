@@ -1,0 +1,7 @@
+apiVersion: v2
+name: docker-registry
+description: docker-registry Helm chart for Kubernetes
+type: application
+version: 1.0.0
+appVersion: 2.8.1
+icon: https://d1q6f0aelx0por.cloudfront.net/product-logos/library-registry-logo.png
