@@ -42,9 +42,28 @@ Example of installation by providing custom values for persistent configuration.
 helm install jenkins /mnt/helms/jenkins-1.0.0.tgz --namespace=default --set spec.volumes.homePath=/mnt/jenkins/
 ```
 
+### Jenkins slaves and Sonarqube
+Following the project [environment-test](https://github.com/davidleonm/environment-test), I added nodes attending my needs for the personal projects I work on. Use the ones you wish! Here further information.
+* **jenkins-helm-slave:** Jenkins node to execute the build related to this project, generate Helm chart packages and move them to a server.
+* **jenkins-netcore-slave:** Jenkins node to build .NET Core projects.
+* **jenkins-python-slave:** Jenkins node to build Python projects.
+* **docker-registry:** Docker registry for staging Docker images. Currently used in the [Weather Station Dashboard](https://github.com/weather-station-project/dashboard) project. More [info](https://hub.docker.com/_/registry).
+* **sonarqube:** [SonarQube](https://hub.docker.com/_/sonarqube) is the leading tool for continuously inspecting the Code Quality and Security of your codebases, and guiding development teams during Code Reviews.
+
+Example of installations by providing custom values for persistent configuration.
+```bash
+helm install jenkins-helm-slave /mnt/helms/jenkins-helm-slave-1.0.0.tgz --namespace default --set spec.volumes.sshdConfigPath=/mnt/jenkins-slaves/sshd_config --set spec.volumes.authorizedKeysPath=/mnt/jenkins-slaves/jenkins_key.pub --set spec.volumes.helmsPath=/mnt/helms/
+helm install jenkins-netcore-slave /mnt/helms/jenkins-netcore-slave-1.0.0.tgz --namespace default --set spec.volumes.sshdConfigPath=/mnt/jenkins-slaves/sshd_config --set spec.volumes.authorizedKeysPath=/mnt/jenkins-slaves/jenkins_key.pub --set spec.volumes.dockerSockPath=/var/run/docker.sock
+helm install jenkins-python-slave /mnt/helms/jenkins-python-slave-1.0.0.tgz --namespace default --set spec.volumes.sshdConfigPath=/mnt/jenkins-slaves/sshd_config --set spec.volumes.authorizedKeysPath=/mnt/jenkins-slaves/jenkins_key.pub --set spec.volumes.dockerSockPath=/var/run/docker.sock --set spec.volumes.qemuPath=/mnt/jenkins-slaves/qemu-arm-static
+helm install docker-registry /mnt/helms/docker-registry-1.0.0.tgz --namespace default --set spec.volumes.registryPath=/mnt/docker-registry/
+helm install sonarqube /mnt/helms/helms/sonarqube-1.0.0.tgz --namespace default --set spec.volumes.dataPath=/mnt/sonarqube/data/ --set spec.volumes.logsPath=/mnt/sonarqube/logs/ --set spec.volumes.extensionsPath=/mnt/sonarqube/extensions/
+```
+
+
 ## Change-log
 I will not use branching for this project so I will just create tags when I consider a chart is finished. The code will change without further notice so fork or copy it when you need it.
 
+* **v1.4.0** - Added slaves and other nodes for the Jenkins environment.
 * **v1.3.0** - Added [Jenkins](https://www.jenkins.io/). Updated Plex deployment to mount library as readonly.
 * **v1.2.0** - Added [Plex](https://www.plex.tv/).
 * **v1.1.1** - Changed JDownloader values to help to override some paths by helm commands. Provided example of installation command.
