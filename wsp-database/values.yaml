@@ -1,0 +1,31 @@
+# Number of replicas to de deployed
+replicaCount: 1
+
+# Image pull information
+image:
+  repository: postgres
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+# Data about the service and port used by it
+service:
+  type: NodePort
+  containerPort: 5432
+  externalPort: 30032
+  protocol: TCP
+
+spec:
+  # The app should be working always even when the host restarts unless it is stopped
+  restartPolicy: Always
+  # Volumes to be configured for configuration and downloads
+  volumes:
+    # Change <Absolute path> by a valid path
+    dataPath: <Absolute path>
+  # Path of the shell interpreter. /bin/ash for alpine
+  shellPath: /bin/ash
+  # List of semi-colon separated commands to execute in shell during initialization
+  commands: -c password_encryption=scram-sha-256
+  timeZone: Europe/Madrid
+  pgTimeZone: Europe/Madrid
+    
