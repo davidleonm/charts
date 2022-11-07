@@ -47,19 +47,19 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: authentication-service
-                  key: authentication-secret
+                  key: authenticationSecret
                   optional: false
             - name: AUDIENCE_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: audience
-                  key: audience-secret
+                  name: global-secrets
+                  key: audienceSecret
                   optional: false
             - name: ASPNETCORE_Kestrel__Certificates__Default__Password
               valueFrom:
                 secretKeyRef:
-                  name: certificate
-                  key: certificate-password
+                  name: global-secrets
+                  key: certificatePassword
                   optional: false
             - name: ASPNETCORE_Kestrel__Certificates__Default__Path
               value: /https/certificate.pfx

@@ -1,0 +1,6 @@
+audienceSecret: MySecret
+certificatePassword: 123456
+server: 127.0.0.1
+database: weather_station
+user: user
+password: password
