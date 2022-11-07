@@ -3,5 +3,5 @@ name: jenkins-python-slave
 description: jenkins-python-slave Helm chart for Kubernetes
 type: application
 version: 1.0.0
-appVersion: "3.9.15-alpine3.16"
+appVersion: 3.9.15-alpine3.16
 icon: https://d1q6f0aelx0por.cloudfront.net/product-logos/library-python-logo.png

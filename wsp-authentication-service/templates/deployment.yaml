@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+  labels:
+    {{- include "wsp-authentication-service.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "wsp-authentication-service.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "wsp-authentication-service.selectorLabels" . | nindent 8 }}
+    spec:
+      restartPolicy: {{ .Values.spec.restartPolicy }}
+      volumes:
+        - name: certificate
+          hostPath:
+            path: {{ .Values.spec.volumes.certificatePath }}
+        - name: timezone
+          hostPath:
+            path: /etc/timezone
+        - name: localtime
+          hostPath:
+            path: /etc/localtime
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.containerPort }}
+              protocol: {{ .Values.service.protocol }}
+          volumeMounts:
+            - name: certificate
+              mountPath: /https/certificate.pfx
+              readOnly: true
+            - name: timezone
+              mountPath: /etc/timezone
+              readOnly: true
+            - name: localtime
+              mountPath: /etc/localtime
+              readOnly: true
+          env:
+            - name: AUTHENTICATION_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: authentication-service
+                  key: authentication-secret
+                  optional: false
+            - name: AUDIENCE_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: audience
+                  key: audience-secret
+                  optional: false
+            - name: ASPNETCORE_Kestrel__Certificates__Default__Password
+              valueFrom:
+                secretKeyRef:
+                  name: certificate
+                  key: certificate-password
+                  optional: false
+            - name: ASPNETCORE_Kestrel__Certificates__Default__Path
+              value: /https/certificate.pfx
