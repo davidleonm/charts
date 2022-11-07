@@ -1,6 +1,6 @@
 apiVersion: v2
-name: weather-station-database
-description: weather-station-database Helm chart for Kubernetes
+name: weather-station-project-database
+description: weather-station-project-database Helm chart for Kubernetes
 type: application
 version: 1.0.0
 appVersion: "15.0-alpine3.16"
