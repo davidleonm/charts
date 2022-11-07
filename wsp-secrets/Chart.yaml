@@ -1,0 +1,7 @@
+apiVersion: v2
+name: wsp-secrets
+description: wsp-secrets Helm chart for Kubernetes
+type: application
+version: 1.0.0
+appVersion: 1.0.0
+icon: https://previews.123rf.com/images/jameschipper/jameschipper1612/jameschipper161200058/69115914-top-secret-icon-stamp.jpg
