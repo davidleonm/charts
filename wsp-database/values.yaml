@@ -25,7 +25,7 @@ spec:
   # Path of the shell interpreter. /bin/ash for alpine
   shellPath: /bin/ash
   # List of semi-colon separated commands to execute in shell during initialization
-  commands: -c password_encryption=scram-sha-256
+  commands: password_encryption=scram-sha-256
   # Timezones used by the DB
   timeZone: Europe/Madrid
   pgTimeZone: Europe/Madrid
