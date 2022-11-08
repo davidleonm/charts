@@ -3,16 +3,16 @@ kind: Deployment
 metadata:
   name: {{ .Chart.Name }}
   labels:
-    {{- include "wsp-database.labels" . | nindent 4 }}
+    {{- include "database.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "wsp-database.selectorLabels" . | nindent 6 }}
+      {{- include "database.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "wsp-database.selectorLabels" . | nindent 8 }}
+        {{- include "database.selectorLabels" . | nindent 8 }}
     spec:
       restartPolicy: {{ .Values.spec.restartPolicy }}
       volumes:
