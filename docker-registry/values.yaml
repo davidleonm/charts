@@ -26,9 +26,9 @@ spec:
   shellPath: /bin/ash
   # List of semi-colon separated commands to execute in shell during initialization
   commands: >
-    apk add --no-cache apache2-utils
-    [ -d /auth ] || mkdir /auth
-    [ -f /auth/htpasswd ] || RUN htpasswd -b -c -B -C 15 /auth/htpasswd $USER $PASSWORD
+    apk add --no-cache apache2-utils ;
+    [ -d /auth ] || mkdir /auth ;
+    [ -f /auth/htpasswd ] || RUN htpasswd -b -c -B -C 15 /auth/htpasswd $USER $PASSWORD ;
     /entrypoint.sh /etc/docker/registry/config.yml
   user: user
   password: password
