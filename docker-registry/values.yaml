@@ -30,5 +30,6 @@ spec:
     [ -d /auth ] || mkdir /auth ;
     [ -f /auth/htpasswd ] || htpasswd -b -c -B -C 15 /auth/htpasswd $USER $PASSWORD ;
     /entrypoint.sh /etc/docker/registry/config.yml
+  # User and password for the authentication
   user: user
   password: password
