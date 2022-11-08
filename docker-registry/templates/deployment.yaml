@@ -30,7 +30,7 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           command: [ {{ .Values.spec.shellPath }} ]
-          args: [ "-c", {{ .Values.spec.commands }} ]
+          args: [ "-c", {{ .Values.spec.commands | quote }} ]
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.service.containerPort }}
