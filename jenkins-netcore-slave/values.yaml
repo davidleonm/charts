@@ -32,8 +32,7 @@ spec:
     export DEBIAN_FRONTEND=noninteractive ;
     apt-get update ;
     apt-get upgrade -y ;
-    apt-get install -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" --force-yes --fix-missing -y openssh-server openjdk-11-jre git curl nodejs npm ;
-    curl -sSL https://get.docker.com/ | sh ;
+    apt-get install -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" --force-yes --fix-missing -y openssh-server openjdk-11-jre git curl nodejs npm docker ;
     useradd -m jenkins -s /bin/bash ;
     echo "jenkins:jenkins" | chpasswd ;
     addgroup jenkins docker ;
