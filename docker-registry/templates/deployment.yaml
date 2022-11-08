@@ -51,3 +51,7 @@ spec:
               value: "/auth/htpasswd"
             - name: REGISTRY_AUTH_HTPASSWD_REALM
               value: "Registry Realm"
+            - name: USER
+              value: {{ .Values.spec.user }}
+            - name: PASSWORD
+              value: {{ .Values.spec.password }}
