@@ -3,16 +3,16 @@ kind: Deployment
 metadata:
   name: {{ .Chart.Name }}
   labels:
-    {{- include "wsp-authentication-service.labels" . | nindent 4 }}
+    {{- include "authentication-service.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "wsp-authentication-service.selectorLabels" . | nindent 6 }}
+      {{- include "authentication-service.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "wsp-authentication-service.selectorLabels" . | nindent 8 }}
+        {{- include "authentication-service.selectorLabels" . | nindent 8 }}
     spec:
       restartPolicy: {{ .Values.spec.restartPolicy }}
       volumes:
