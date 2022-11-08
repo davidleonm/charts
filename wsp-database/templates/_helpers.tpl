@@ -1,23 +1,23 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "database.name" -}}
+{{- define "wsp-database.name" -}}
 {{- default .Chart.Name | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "database.chart" -}}
+{{- define "wsp-database.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "database.labels" -}}
-helm.sh/chart: {{ include "database.chart" . }}
-{{ include "database.selectorLabels" . }}
+{{- define "wsp-database.labels" -}}
+helm.sh/chart: {{ include "wsp-database.chart" . }}
+{{ include "wsp-database.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -27,7 +27,7 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "database.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "database.name" . }}
+{{- define "wsp-database.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "wsp-database.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
