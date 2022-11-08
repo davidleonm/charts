@@ -9,6 +9,7 @@ spec:
   ports:
     - port: {{ .Values.service.containerPort }}
       targetPort: {{ .Values.service.containerPort }}
+      nodePort: {{ .Values.service.externalPort }}
       protocol: {{ .Values.service.protocol }}
   selector:
     {{- include "docker-registry.selectorLabels" . | nindent 4 }}

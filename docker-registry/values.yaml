@@ -10,8 +10,9 @@ image:
 
 # Data about the service and port used by it
 service:
-  type: ClusterIP
+  type: NodePort
   containerPort: 5000
+  externalPort: 31050
   protocol: TCP
 
 spec:
