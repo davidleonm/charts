@@ -3,16 +3,15 @@ replicaCount: 1
 
 # Image pull information
 image:
-  repository: weatherstationproject/gateway-service
+  repository: weatherstationproject/ambient-temperature-service
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
 # Data about the service and port used by it
 service:
-  type: NodePort
+  type: ClusterIP
   containerPort: 1443
-  externalPort: 30044
   protocol: TCP
 
 spec:

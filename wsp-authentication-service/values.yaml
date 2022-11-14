@@ -18,7 +18,7 @@ service:
 spec:
   # The app should be working always even when the host restarts unless it is stopped
   restartPolicy: Always
-  # Volumes to be configured for configuration and downloads
+  # Volume to be configured for certificate path
   volumes:
     # Change <Absolute path> by a valid path
     certificatePath: <Absolute path>
