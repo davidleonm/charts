@@ -3,16 +3,16 @@ kind: Deployment
 metadata:
   name: {{ .Chart.Name }}
   labels:
-    {{- include "authentication-service.labels" . | nindent 4 }}
+    {{- include "dashboard.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "authentication-service.selectorLabels" . | nindent 6 }}
+      {{- include "dashboard.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "authentication-service.selectorLabels" . | nindent 8 }}
+        {{- include "dashboard.selectorLabels" . | nindent 8 }}
     spec:
       restartPolicy: {{ .Values.spec.restartPolicy }}
       volumes:
@@ -49,12 +49,6 @@ spec:
                   name: global-secrets
                   key: authenticationSecret
                   optional: false
-            - name: AUDIENCE_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: global-secrets
-                  key: audienceSecret
-                  optional: false
             - name: ASPNETCORE_Kestrel__Certificates__Default__Password
               valueFrom:
                 secretKeyRef:
@@ -63,3 +57,15 @@ spec:
                   optional: false
             - name: ASPNETCORE_Kestrel__Certificates__Default__Path
               value: /https/certificate.pfx
+            - name: ACCUWEATHER_LOCATION_NAME
+              value: {{ .Values.spec.accuweatherLocationName }}
+            - name: WEATHER_API_HOST
+              value: {{ .Values.spec.weatherApiGateway }}
+            - name: ACCUWEATHER_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: dashboard
+                  key: accuweatherApiKey
+                  optional: false
+            - name: AUTHENTICATION_SERVICE_HOST
+              value: {{ .Values.spec.accuweatherLocationName }}

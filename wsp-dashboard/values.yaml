@@ -1,0 +1,33 @@
+# Number of replicas to de deployed
+replicaCount: 1
+
+# Image pull information
+image:
+  repository: weatherstationproject/dashboard
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+# Data about the service and port used by it
+service:
+  type: NodePort
+  containerPort: 1443
+  externalPort: 30043
+  protocol: TCP
+
+spec:
+  # The app should be working always even when the host restarts unless it is stopped
+  restartPolicy: Always
+  # Volume to be configured for certificate path
+  volumes:
+    # Change <Absolute path> by a valid path
+    certificatePath: <Absolute path>
+  # Key to connect to Accuweather Api
+  accuweatherApiKey: 123456
+  # Location name
+  accuweatherLocationName: MyCity
+  # Url where gateway service service is located
+  weatherApiGateway: https://gateway-service:1443
+  # Url where the authentication service is located
+  authenticationService: https://authentication-service:1443
+  

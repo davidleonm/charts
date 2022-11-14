@@ -1,0 +1,23 @@
+# Number of replicas to de deployed
+replicaCount: 1
+
+# Image pull information
+image:
+  repository: weatherstationproject/ground-temperature-service
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+# Data about the service and port used by it
+service:
+  type: ClusterIP
+  containerPort: 1443
+  protocol: TCP
+
+spec:
+  # The app should be working always even when the host restarts unless it is stopped
+  restartPolicy: Always
+  # Volume to be configured for certificate path
+  volumes:
+    # Change <Absolute path> by a valid path
+    certificatePath: <Absolute path>

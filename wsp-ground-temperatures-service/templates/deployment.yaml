@@ -3,16 +3,16 @@ kind: Deployment
 metadata:
   name: {{ .Chart.Name }}
   labels:
-    {{- include "authentication-service.labels" . | nindent 4 }}
+    {{- include "ground-temperatures-service.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "authentication-service.selectorLabels" . | nindent 6 }}
+      {{- include "ground-temperatures-service.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "authentication-service.selectorLabels" . | nindent 8 }}
+        {{- include "ground-temperatures-service.selectorLabels" . | nindent 8 }}
     spec:
       restartPolicy: {{ .Values.spec.restartPolicy }}
       volumes:
@@ -43,12 +43,6 @@ spec:
               mountPath: /etc/localtime
               readOnly: true
           env:
-            - name: AUTHENTICATION_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: global-secrets
-                  key: authenticationSecret
-                  optional: false
             - name: AUDIENCE_SECRET
               valueFrom:
                 secretKeyRef:
@@ -63,3 +57,27 @@ spec:
                   optional: false
             - name: ASPNETCORE_Kestrel__Certificates__Default__Path
               value: /https/certificate.pfx
+            - name: SERVER
+              valueFrom:
+                secretKeyRef:
+                  name: global-secrets
+                  key: server
+                  optional: false
+            - name: DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: global-secrets
+                  key: database
+                  optional: false
+            - name: USER
+              valueFrom:
+                secretKeyRef:
+                  name: global-secrets
+                  key: user
+                  optional: false
+            - name: PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: global-secrets
+                  key: password
+                  optional: false
