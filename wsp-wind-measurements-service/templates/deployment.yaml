@@ -1,0 +1,83 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+  labels:
+    {{- include "wind-measurements-service.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "wind-measurements-service.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "wind-measurements-service.selectorLabels" . | nindent 8 }}
+    spec:
+      restartPolicy: {{ .Values.spec.restartPolicy }}
+      volumes:
+        - name: certificate
+          hostPath:
+            path: {{ .Values.spec.volumes.certificatePath }}
+        - name: timezone
+          hostPath:
+            path: /etc/timezone
+        - name: localtime
+          hostPath:
+            path: /etc/localtime
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.containerPort }}
+              protocol: {{ .Values.service.protocol }}
+          volumeMounts:
+            - name: certificate
+              mountPath: /https/certificate.pfx
+              readOnly: true
+            - name: timezone
+              mountPath: /etc/timezone
+              readOnly: true
+            - name: localtime
+              mountPath: /etc/localtime
+              readOnly: true
+          env:
+            - name: AUDIENCE_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: global-secrets
+                  key: audienceSecret
+                  optional: false
+            - name: ASPNETCORE_Kestrel__Certificates__Default__Password
+              valueFrom:
+                secretKeyRef:
+                  name: global-secrets
+                  key: certificatePassword
+                  optional: false
+            - name: ASPNETCORE_Kestrel__Certificates__Default__Path
+              value: /https/certificate.pfx
+            - name: SERVER
+              valueFrom:
+                secretKeyRef:
+                  name: global-secrets
+                  key: server
+                  optional: false
+            - name: DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: global-secrets
+                  key: database
+                  optional: false
+            - name: USER
+              valueFrom:
+                secretKeyRef:
+                  name: global-secrets
+                  key: user
+                  optional: false
+            - name: PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: global-secrets
+                  key: password
+                  optional: false
