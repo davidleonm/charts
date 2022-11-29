@@ -5,6 +5,7 @@ replicaCount: 1
 image:
   repository: postgres
   pullPolicy: IfNotPresent
+  pullSecret: regcred
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 

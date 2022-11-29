@@ -69,3 +69,5 @@ spec:
                   optional: false
             - name: AUTHENTICATION_SERVICE_HOST
               value: {{ .Values.spec.accuweatherLocationName }}
+      imagePullSecrets:
+        - name: {{ .Values.image.pullSecret }}

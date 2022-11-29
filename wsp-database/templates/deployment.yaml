@@ -47,3 +47,5 @@ spec:
               value: {{ .Values.spec.timeZone }}
             - name: PGTZ
               value: {{ .Values.spec.pgTimeZone }}
+      imagePullSecrets:
+        - name: {{ .Values.image.pullSecret }}

@@ -5,6 +5,7 @@ replicaCount: 1
 image:
   repository: weatherstationproject/ambient-temperature-service
   pullPolicy: IfNotPresent
+  pullSecret: regcred
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 

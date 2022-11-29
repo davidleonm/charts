@@ -81,3 +81,5 @@ spec:
                   name: global-secrets
                   key: password
                   optional: false
+      imagePullSecrets:
+        - name: {{ .Values.image.pullSecret }}
