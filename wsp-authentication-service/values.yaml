@@ -23,4 +23,3 @@ spec:
   volumes:
     # Change <Absolute path> by a valid path
     certificatePath: <Absolute path>
-  authenticationSecret: 123456
