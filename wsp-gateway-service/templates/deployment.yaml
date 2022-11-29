@@ -57,3 +57,5 @@ spec:
                   optional: false
             - name: ASPNETCORE_Kestrel__Certificates__Default__Path
               value: /https/certificate.pfx
+      imagePullSecrets:
+        - name: {{ .Values.image.pullSecret }}
