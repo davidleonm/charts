@@ -22,3 +22,30 @@ spec:
   volumes:
     # Change <Absolute path> by a valid path
     certificatePath: <Absolute path>
+
+# Probes
+livenessProbe:
+  httpGet:
+    path: /api/health-check
+    port: 1443
+    scheme: HTTPS
+  initialDelaySeconds: 15
+  periodSeconds: 5
+  timeoutSeconds: 10
+
+readinessProbe:
+  httpGet:
+    path: /api/health-check
+    port: 1443
+    scheme: HTTPS
+  initialDelaySeconds: 15
+  periodSeconds: 5
+  timeoutSeconds: 10
+
+# Resources
+resources:
+  requests:
+    cpu: 200m
+    memory: 512Mi
+  limits:
+    memory: 512Mi

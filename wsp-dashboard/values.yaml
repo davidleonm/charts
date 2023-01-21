@@ -31,4 +31,31 @@ spec:
   weatherApiGateway: https://gateway-service:1443
   # Url where the authentication service is located
   authenticationService: https://authentication-service:1443
+
+# Probes
+livenessProbe:
+  httpGet:
+    path: /api/health-check
+    port: 1443
+    scheme: HTTPS
+  initialDelaySeconds: 15
+  periodSeconds: 5
+  timeoutSeconds: 10
+
+readinessProbe:
+  httpGet:
+    path: /api/health-check
+    port: 1443
+    scheme: HTTPS
+  initialDelaySeconds: 15
+  periodSeconds: 5
+  timeoutSeconds: 10
+
+# Resources
+resources:
+  requests:
+    cpu: 200m
+    memory: 512Mi
+  limits:
+    memory: 512Mi
   

@@ -32,6 +32,9 @@ spec:
           ports:
             - containerPort: {{ .Values.service.containerPort }}
               protocol: {{ .Values.service.protocol }}
+          resources: {{toYaml .Values.resources | trim | nindent 12}}
+          livenessProbe: {{toYaml .Values.livenessProbe | trim | nindent 12}}
+          readinessProbe: {{toYaml .Values.readinessProbe | trim | nindent 12}}
           volumeMounts:
             - name: certificate
               mountPath: /https/certificate.pfx
