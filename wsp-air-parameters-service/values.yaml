@@ -28,6 +28,7 @@ livenessProbe:
   httpGet:
     path: /api/health-check
     port: 1443
+    scheme: HTTPS
   initialDelaySeconds: 15
   periodSeconds: 5
   timeoutSeconds: 10
@@ -36,6 +37,7 @@ readinessProbe:
   httpGet:
     path: /api/health-check
     port: 1443
+    scheme: HTTPS
   initialDelaySeconds: 15
   periodSeconds: 5
   timeoutSeconds: 10
