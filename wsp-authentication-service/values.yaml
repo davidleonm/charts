@@ -30,8 +30,8 @@ livenessProbe:
     path: /api/health-check
     port: 1443
     scheme: HTTPS
-  initialDelaySeconds: 15
-  periodSeconds: 5
+  initialDelaySeconds: 10
+  periodSeconds: 60
   timeoutSeconds: 10
 
 readinessProbe:
@@ -39,8 +39,8 @@ readinessProbe:
     path: /api/health-check
     port: 1443
     scheme: HTTPS
-  initialDelaySeconds: 15
-  periodSeconds: 5
+  initialDelaySeconds: 10
+  periodSeconds: 60
   timeoutSeconds: 10
 
 # Resources
