@@ -31,3 +31,11 @@ spec:
     libraryPath: <Absolute path>
   # Complete list of timezones https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   timeZone: <My time zone>
+
+# Resources
+resources:
+  requests:
+    cpu: 500m
+    memory: 4Gi
+  limits:
+    memory: 8Gi

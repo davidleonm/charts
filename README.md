@@ -29,7 +29,7 @@ The chart set here is prepared to store the configuration and content on the hos
 
 Example of installation by providing custom values for persistent configuration and media content.
 ```bash
-helm install plex /mnt/helms/plex-1.0.1.tgz --namespace=default --set spec.volumes.configPath=/mnt/config/ --set spec.volumes.transcodingPath=/mnt/transcode/ --set spec.volumes.libraryPath=/mnt/library/ --set spec.timeZone=Europe/Madrid
+helm install plex /mnt/helms/plex-1.0.0.tgz --namespace=default --set spec.volumes.configPath=/mnt/config/ --set spec.volumes.transcodingPath=/mnt/transcode/ --set spec.volumes.libraryPath=/mnt/library/ --set spec.timeZone=Europe/Madrid
 ```
 
 ### Jenkins
